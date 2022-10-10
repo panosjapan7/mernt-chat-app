@@ -4,30 +4,42 @@ import './App.css';
 import ChatItem from "@mernt-chat-app/shared";
 
 axios.defaults.baseURL = "http://localhost:3001";
-const fetchChatItems = async () => {
-  const response = await axios.get<ChatItem>("/chats");
+
+const fetchChatItems = async ():Promise<ChatItem[]> => {
+  const response = await axios.get<ChatItem[]>("/chats");
   return response.data;
 };
 
 
 function App() {
-  const [chatItem, setChatItem] = useState<ChatItem | undefined>();
+  const [chatItems, setChatItems] = useState<ChatItem[]>([]);
   const [error, setError] = useState<string | undefined>();
+
+  const createChatItem = async (chatItem: ChatItem): Promise<ChatItem[]> => {
+    const response = await axios.post<ChatItem[]>("/chats", chatItem);
+    return response.data;
+  };
 
   useEffect(() => {
     fetchChatItems()
-      .then(setChatItem)
+      .then(setChatItems)
       .catch((error) => {
-        setChatItem(undefined);
+        setChatItems([]);
         setError("Something went wrong when fetching messages...");
       });
+      console.log(chatItems)
   }, []);
 
 
   return (
     <div>
       <div className='container--chatItem'>
-        <p>{chatItem ? chatItem.text : error ? error : "No messages sent..."}</p>
+        {chatItems && chatItems.length !== 0 ? chatItems.map( chatItem => (
+                        <div key={chatItem._id}>
+                          <p>{chatItem.text}</p>
+                        </div>
+        )
+          ) : error ? error : "No messages sent..."}
       </div>
     </div>
   );
