@@ -3,7 +3,7 @@ import axios from "axios";
 import './App.css';
 import ChatItem from "@mernt-chat-app/shared";
 
-axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = process.env.REACT_APP_CHAT_API || "http://localhost:3001";
 
 const fetchChatItems = async ():Promise<ChatItem[]> => {
   const response = await axios.get<ChatItem[]>("/chats");
