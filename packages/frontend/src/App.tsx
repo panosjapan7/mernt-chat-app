@@ -12,16 +12,22 @@ const fetchChatItems = async () => {
 
 function App() {
   const [chatItem, setChatItem] = useState<ChatItem | undefined>();
+  const [error, setError] = useState<string | undefined>();
 
   useEffect(() => {
-    fetchChatItems().then(setChatItem);
+    fetchChatItems()
+      .then(setChatItem)
+      .catch((error) => {
+        setChatItem(undefined);
+        setError("Something went wrong when fetching messages...");
+      });
   }, []);
 
 
   return (
     <div>
       <div className='container--chatItem'>
-        <p>{chatItem ? chatItem.text : "No messages sent..."}</p>
+        <p>{chatItem ? chatItem.text : error ? error : "No messages sent..."}</p>
       </div>
     </div>
   );
