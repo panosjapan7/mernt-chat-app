@@ -38,8 +38,6 @@ function App() {
 
   const performLogin = async (author: string): Promise<void> => {
     setAuthor(author);
-    console.log(author);
-
   };
 
   useEffect(() => {
