@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import './App.css';
+import ChatItem from "@mernt-chat-app/shared";
+
+axios.defaults.baseURL = "http://localhost:3001";
+const fetchChatItems = async () => {
+  const response = await axios.get<ChatItem>("/chats");
+  return response.data;
+};
+
 
 function App() {
+  const [chatItem, setChatItem] = useState<ChatItem | undefined>();
+
+  useEffect(() => {
+    fetchChatItems().then(setChatItem);
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className='container--chatItem'>
+        <p>{chatItem ? chatItem.text : "No messages sent..."}</p>
+      </div>
     </div>
   );
 }
