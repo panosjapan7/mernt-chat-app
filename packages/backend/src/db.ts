@@ -3,7 +3,8 @@ import ChatItem from "@mernt-chat-app/shared";
 
 const ChatItemSchema = new Schema({
     text: String,
-    timeStamp: Date
+    timeStamp: Date,
+    author: String
 });
 
 const ChatItemModel = model<ChatItem>("ChatItem", ChatItemSchema);
