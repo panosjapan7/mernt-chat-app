@@ -15,6 +15,13 @@ app.get("/chats", (req: Request, res: Response<ChatItem[]>) => {
     res.send(CHAT_ITEMS);
 });
 
+app.post("/chats", (req: Request<ChatItem>, res: Response<ChatItem[]>) => {
+    const chatItem = req.body;
+    console.log("Got a new message: ", chatItem);
+    CHAT_ITEMS.push(chatItem);
+    res.send(CHAT_ITEMS);
+});
+
 app.listen(PORT, function() {
     console.log(`App is listening on ${PORT}`);
 });
