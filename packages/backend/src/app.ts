@@ -1,6 +1,9 @@
 import express, { Application, json, Request, Response } from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import ChatItem from "@mernt-chat-app/shared";
+
+dotenv.config();
 
 const app: Application = express();
 
