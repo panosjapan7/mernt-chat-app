@@ -34,12 +34,15 @@ function App() {
   };
 
   useEffect(() => {
-    fetchChatItems()
-      .then(setChatItems)
-      .catch((error) => {
-        setChatItems([]);
-        setError("Something went wrong when fetching array with messages...");
-      });
+    const interval = setInterval(() => {
+      fetchChatItems()
+        .then(setChatItems)
+        .catch((error) => {
+          setChatItems([]);
+          setError("Something went wrong when fetching array with messages...");
+        });
+    }, 10000);
+    return () => clearInterval(interval);
   }, []);
 
 
