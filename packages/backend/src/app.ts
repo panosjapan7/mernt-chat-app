@@ -9,8 +9,10 @@ app.use(json()); // middleware Express function that parses incoming JSON reques
 
 const PORT: number = parseInt(process.env.SERVER_PORT || "3001");
 
-app.get("/chats", (req: Request, res: Response<ChatItem>) => {
-    res.send({_id: "123", text: "My first message! (via backend)", timeStamp: new Date(), author: "Panos"});
+const CHAT_ITEMS:ChatItem[] = [{_id: "123", text: "My first message! (via backend)", timeStamp: new Date(), author: "Panos"}];
+
+app.get("/chats", (req: Request, res: Response<ChatItem[]>) => {
+    res.send(CHAT_ITEMS);
 });
 
 app.listen(PORT, function() {
