@@ -21,7 +21,7 @@ function App() {
       text: chatItemText, 
       timeStamp: new Date(),
       author: "Panos",
-      _id: "123"
+      // _id: "123"
     };
     try {
       const response = await axios.post<ChatItem[]>("/chats", chatItem);
