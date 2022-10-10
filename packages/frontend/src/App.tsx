@@ -14,10 +14,17 @@ const fetchChatItems = async ():Promise<ChatItem[]> => {
 function App() {
   const [chatItems, setChatItems] = useState<ChatItem[]>([]);
   const [error, setError] = useState<string | undefined>();
+  const [chatItemText, setChatItemText] = useState<string>("");
 
-  const createChatItem = async (chatItem: ChatItem): Promise<ChatItem[]> => {
-    const response = await axios.post<ChatItem[]>("/chats", chatItem);
-    return response.data;
+  const createChatItem = (chatItemText: string): void => {
+    const chatItem: ChatItem = {
+      text: chatItemText, 
+      timeStamp: new Date(),
+      author: "Panos",
+      _id: "123"
+    }
+    axios.post<ChatItem[]>("/chats", chatItem)
+    .then((response) => setChatItems(response.data));
   };
 
   useEffect(() => {
@@ -27,7 +34,6 @@ function App() {
         setChatItems([]);
         setError("Something went wrong when fetching messages...");
       });
-      console.log(chatItems)
   }, []);
 
 
@@ -41,6 +47,11 @@ function App() {
         )
           ) : error ? error : "No messages sent..."}
       </div>
+
+      <section>
+        <input type="text" value={chatItemText} onChange={(e) => setChatItemText(e.target.value)}/>
+        <button onClick={(e) => createChatItem(chatItemText)}>Send</button>
+      </section>
     </div>
   );
 }
