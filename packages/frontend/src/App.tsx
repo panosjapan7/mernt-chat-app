@@ -57,9 +57,11 @@ function App() {
           setChatItems([]);
           setError("Something went wrong when fetching array with messages...");
         });
-    }, 10000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+
 
 
   return (
@@ -67,22 +69,25 @@ function App() {
       {!author && <LoginInput onLogin={performLogin} />}
       
       {author && (  
-        <div className='container--chatItems'>
-          <div className='container--author'>
-            
+        <div className='container--chatItems-input'>
+          <div className='container--chatItems'>
+
+            <div className='container--chatItem'>
+              {chatItems && chatItems.length !== 0 ? chatItems.map( chatItem => (
+                              <div className={`container--chat-item${chatItem.author === author ? "-author" : "-users"}`} key={chatItem._id}>
+                                <div className='container--author-timestamp'>
+                                  <p className='author'>{chatItem.author}</p>
+                                  <p className='timestamp'>{formatDate(chatItem.timeStamp.toLocaleString())}</p>
+                                </div>
+                                <p>{chatItem.text}</p>
+                              </div>
+              )
+                ) : error ? error : "No messages sent..."}
+            </div>
+
           </div>
 
-          <div className='container--chatItem'>
-            {chatItems && chatItems.length !== 0 ? chatItems.map( chatItem => (
-                            <div key={chatItem._id}>
-                              <p>{formatDate(chatItem.timeStamp.toLocaleString())}</p>
-                              <p>{chatItem.text}</p>
-                            </div>
-            )
-              ) : error ? error : "No messages sent..."}
-          </div>
-
-          <section>
+          <section className='container--input'>
             <p>Author: {author}</p>
             <input type="text" value={chatItemText} onChange={(e) => setChatItemText(e.target.value)}/>
             <button onClick={(e) => createChatItem(chatItemText)}>Send</button>
