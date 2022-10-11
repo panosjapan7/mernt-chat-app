@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import './App.css';
+import './styles/App.css';
 import ChatItem from "@mernt-chat-app/shared";
 import { LoginInput } from "./LoginInput";
 
@@ -16,8 +16,17 @@ function App() {
   const [chatItems, setChatItems] = useState<ChatItem[]>([]);
   const [error, setError] = useState<string | undefined>();
   const [chatItemText, setChatItemText] = useState<string>("");
-  
   const [author, setAuthor] = useState<string>("");
+
+  const formatDate = (date:string) => {
+    const formattedDate = date.split("T")[0];
+    const formattedHour = date.split("T")[1].substring(0, 2);
+    const formattedMinutes = date.split("T")[1].substring(3, 5);
+    const amPM = parseInt(formattedHour) < 12 ? "AM" : "PM";
+    let t = new Date();
+    let today = t.toString().split(" ")[2];
+    return `${formattedDate.split("-")[2] === today ? "Today" : formattedDate} at ${formattedHour}:${formattedMinutes} ${amPM}`;
+  };
 
   const createChatItem = async (chatItemText: string): Promise<void> => {
     const chatItem: ChatItem = {
@@ -54,18 +63,19 @@ function App() {
 
 
   return (
-    <div>
+    <div className='container--page'>
       {!author && <LoginInput onLogin={performLogin} />}
       
       {author && (  
         <div className='container--chatItems'>
           <div className='container--author'>
-            <p>Author: {author}</p>
+            
           </div>
 
           <div className='container--chatItem'>
             {chatItems && chatItems.length !== 0 ? chatItems.map( chatItem => (
                             <div key={chatItem._id}>
+                              <p>{formatDate(chatItem.timeStamp.toLocaleString())}</p>
                               <p>{chatItem.text}</p>
                             </div>
             )
@@ -73,6 +83,7 @@ function App() {
           </div>
 
           <section>
+            <p>Author: {author}</p>
             <input type="text" value={chatItemText} onChange={(e) => setChatItemText(e.target.value)}/>
             <button onClick={(e) => createChatItem(chatItemText)}>Send</button>
           </section>
