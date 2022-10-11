@@ -1,6 +1,82 @@
-.container--page {
-  text-align: center;
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 
+.container--page {
+  height: 100vh;
+  /* text-align: center; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: center; */
+  /* align-content: center; */
+  position: relative;
+}
 
+.container--chatItems-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.container--chatItems {
+  height: 70%;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  margin-bottom: 0px;
+}
+.container--chat-item {
+  border: 1px solid red;
+  border-radius: 15px;
+  max-width: 100%;
+  width: 400px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-top: 20px;
+}
+.container--chat-item-users {
+  border: 1px solid red;
+  border-radius: 20px;
+  max-width: 100%;
+  width: 400px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-top: 30px;
+  overflow: hidden;
+}
+.container--chat-item-author {
+  border: 1px solid green;
+  border-radius: 15px;
+  max-width: 100%;
+  width: 400px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-top: 30px;
+  border-radius: 20px;
+}
+.container--author-timestamp {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+  .author {
+    font-weight: 600;
+    font-size: 1em;
+  }
+  .timestamp {
+    font-style: italic;
+    font-size: 0.8em;
+  }
+
+.container--input {
+  text-align: center;
+  border: 1px solid black;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  border-radius: 20px;
+  min-width: 500px;
+}
