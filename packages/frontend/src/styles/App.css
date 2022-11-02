@@ -5,12 +5,9 @@
 
 .container--page {
   height: 100vh;
-  /* text-align: center; */
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* align-items: center; */
-  /* align-content: center; */
   position: relative;
 }
 

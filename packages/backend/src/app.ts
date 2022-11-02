@@ -14,8 +14,6 @@ app.use(json()); // middleware Express function that parses incoming JSON reques
 const PORT: number = parseInt(process.env.SERVER_PORT || "3001");
 const mongoUrl:string = process.env.MONGODB_URL || "mongodb://localhost:27017";
 
-// const CHAT_ITEMS:ChatItem[] = [{_id: "123", text: "My first message! (via backend)", timeStamp: new Date(), author: "Panos"}];
-
 app.get("/chats", async (req: Request, res: Response<ChatItem[]>) => {
     const chatItems = await loadAllChatItems();
     console.log("All chat items: ", chatItems);

@@ -61,9 +61,6 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-
-
-
   return (
     <div className='container--page'>
       {!author && <LoginInput onLogin={performLogin} />}

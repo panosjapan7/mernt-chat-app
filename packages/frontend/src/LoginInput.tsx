@@ -8,7 +8,6 @@ export const LoginInput = (props: LoginInputProps) => {
   const [author, setAuthor] = useState<string>("");
 
   const attemptLogin = async () => {
-    // console.log(`Log in with author: ${author}`);
     props.onLogin(author);
     setAuthor("");
   };
