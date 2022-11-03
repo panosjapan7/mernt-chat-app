@@ -11,6 +11,7 @@ const ChatItemModel = model<ChatItem>("ChatItem", ChatItemSchema);
 
 export const setupMongoDb = async (url: string) => {
     await connect(url);
+    console.log("Connected to MongoDb")
 };
 
 export const loadAllChatItems = async (): Promise<ChatItem[]> => {
