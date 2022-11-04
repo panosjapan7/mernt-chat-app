@@ -28,6 +28,7 @@ app.post("/chats", async (req: Request<ChatItem>, res: Response<ChatItem[]>) => 
 
 app.listen(PORT, async function() {
     await setupMongoDb(mongoUrl);
+    console.log(`Backend server connected on port ${PORT}`);
 });
 
 
